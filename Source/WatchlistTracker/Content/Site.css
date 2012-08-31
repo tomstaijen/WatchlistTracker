@@ -3,7 +3,7 @@
 
 body   
 {
-    background: #b6b7bc;
+    background: #444444;
     font-size: .80em;
     font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
     margin: 0px;
@@ -88,10 +88,10 @@ first child of the left and right table columns */
 
 .page
 {
-    width: 960px;
+    width: 940px;
     background-color: #fff;
-    margin: 20px auto 0px auto;
-    border: 1px solid #496077;
+    margin: 0px auto 0px auto;
+    background: #FFFFFF;
 }
 
 .header
@@ -99,7 +99,7 @@ first child of the left and right table columns */
     position: relative;
     margin: 0px;
     padding: 0px;
-    background: #4b6c9e;
+    background: #000000;
     width: 100%;
 }
 

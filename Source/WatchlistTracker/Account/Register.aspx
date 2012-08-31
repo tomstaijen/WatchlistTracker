@@ -4,14 +4,6 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <asp:CreateUserWizard ID="RegisterUser" runat="server" EnableViewState="false" OnCreatedUser="RegisterUser_CreatedUser">
-        <LayoutTemplate>
-            <asp:PlaceHolder ID="wizardStepPlaceholder" runat="server"></asp:PlaceHolder>
-            <asp:PlaceHolder ID="navigationPlaceholder" runat="server"></asp:PlaceHolder>
-        </LayoutTemplate>
-        <WizardSteps>
-            <asp:CreateUserWizardStep ID="RegisterUserWizardStep" runat="server">
-                <ContentTemplate>
                     <h2>
                         Create a New Account
                     </h2>
@@ -60,16 +52,67 @@
                                      CssClass="failureNotification" Display="Dynamic" ErrorMessage="The Password and Confirmation Password must match."
                                      ValidationGroup="RegisterUserValidationGroup">*</asp:CompareValidator>
                             </p>
+                            <fieldset class="register">
+                                <legend>Trakt Account</legend>
+                             <p>
+                                <asp:Label ID="TraktUsernameLabel" runat="server" AssociatedControlID="UserName">Trakt User Name:</asp:Label>
+                                <asp:TextBox ID="TraktUsername" runat="server" CssClass="textEntry"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TraktUsername" 
+                                     CssClass="failureNotification" ErrorMessage="User Name is required." ToolTip="Trakt User Name is required." 
+                                     ValidationGroup="RegisterUserValidationGroup">*</asp:RequiredFieldValidator>
+                            </p>
+                            <p>
+                                <asp:Label ID="TraktPasswordLabel" runat="server" AssociatedControlID="TraktPassword">Trakt Password:</asp:Label>
+                                <asp:TextBox ID="TraktPassword" runat="server" CssClass="passwordEntry" TextMode="Password"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="TraktPassword" 
+                                     CssClass="failureNotification" ErrorMessage="User Name is required." ToolTip="Trakt Api Key is required." 
+                                     ValidationGroup="RegisterUserValidationGroup">*</asp:RequiredFieldValidator>
+                            </p>
+                            <p>
+                                <asp:Label ID="TraktApiKeyLabel" runat="server" AssociatedControlID="TraktApiKey">Trakt Api Key:</asp:Label>
+                                <asp:TextBox ID="TraktApiKey" runat="server" CssClass="textEntry"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TraktApiKey" 
+                                     CssClass="failureNotification" ErrorMessage="User Name is required." ToolTip="Trakt Api Key is required." 
+                                     ValidationGroup="RegisterUserValidationGroup">*</asp:RequiredFieldValidator>
+                            </p>
+                            
+                            <a class="k-button" id="validateTraktAccount">Validate</a>
+                            </fieldset>
+
                         </fieldset>
                         <p class="submitButton">
-                            <asp:Button ID="CreateUserButton" runat="server" CommandName="MoveNext" Text="Create User" 
-                                 ValidationGroup="RegisterUserValidationGroup"/>
+                            <asp:Button ID="CreateUserButton" runat="server" Text="Create User" 
+                                 ValidationGroup="RegisterUserValidationGroup" 
+                                onclick="CreateUserButton_Click"/>
                         </p>
                     </div>
-                </ContentTemplate>
-                <CustomNavigationTemplate>
-                </CustomNavigationTemplate>
-            </asp:CreateUserWizardStep>
-        </WizardSteps>
-    </asp:CreateUserWizard>
+                    
+                    <script type="text/javascript">
+
+                        $("#validateTraktAccount").click(function (e) {
+                            e.preventDefault();
+                            var data =
+                                JSON.stringify({
+                                    ApiKey: $("#MainContent_TraktApiKey").val(),
+                                    Login: {
+                                        username: $("#MainContent_TraktUsername").val(),
+                                        password: sha1($("#MainContent_TraktPassword").val())
+                                    }
+                                });
+                            $.ajax("/api/user/IsValidTraktUser", {
+                                data: data,
+                                type: 'POST',
+                                contentType: 'application/json',
+                                success: function (data) {
+                                    if (data)
+                                        jSuccess('Account validation success.');
+                                    else
+                                        jError('Account validation failed.');
+                                },
+                                error: function (a, b, c) {
+                                    console.log(a);
+                                }
+                            });
+                        });
+                    </script>
 </asp:Content>
