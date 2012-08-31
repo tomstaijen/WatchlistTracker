@@ -88,7 +88,11 @@ namespace WatchlistTracker
             // RavenDB
             builder.Register(c =>
                                  {
-                                     var docStore = new DocumentStore { Url = ConfigurationManager.AppSettings["RAVEN"]};
+                                     var docStore = new DocumentStore
+                                                        {
+                                                            Url = ConfigurationManager.AppSettings["RavenUrl"],
+                                                            ApiKey = ConfigurationManager.AppSettings["RavenApiKey"]
+                                                        };
                                      docStore.Initialize();
                                      return docStore;
                                  }).SingleInstance();
