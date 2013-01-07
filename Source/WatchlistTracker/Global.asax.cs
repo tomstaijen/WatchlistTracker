@@ -89,7 +89,7 @@ namespace WatchlistTracker
                                  {
                                      var docStore = new DocumentStore
                                                         {
-                                                            ConnectionStringName = "RavenDB"
+                                                            ConnectionStringName = "CLOUDBIRD_CONNECTION_STRING"
                                                         };
                                      docStore.Initialize();
                                      return docStore;
