@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
+using WatchlistTracker.Logic;
 
 namespace WatchlistTracker.Models
 {
@@ -17,6 +18,7 @@ namespace WatchlistTracker.Models
         public string Tagline { get; set; }
         public string[] Genres { get; set; }
         public string Poster { get; set; }
+
     }
 
     public class TraktMovie
@@ -74,6 +76,9 @@ namespace WatchlistTracker.Models
 
         [JsonProperty("InCollection")]
         public bool InCollection { get; set; }
+
+
+        public IEnumerable<Release> Releases { get; set; }
     }
 
     public class Ratings

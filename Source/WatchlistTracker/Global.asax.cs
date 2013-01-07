@@ -1,28 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.WebHost;
 using System.Web.Routing;
-using System.Web.Security;
-using System.Web.SessionState;
 using Autofac;
 using Autofac.Integration.Web;
 using Autofac.Integration.WebApi;
 using Raven.Client;
 using Raven.Client.Document;
+using SignalR;
+using WatchlistTracker.Connections;
 using WatchlistTracker.Logic;
 
 namespace WatchlistTracker
 {
-    public class Global : System.Web.HttpApplication, IContainerProviderAccessor
+    public class Global : HttpApplication, IContainerProviderAccessor
     {
         void Application_Start(object sender, EventArgs e)
         {
+            RouteTable.Routes.MapConnection<EchoConnection>("echo", "signal/echo/{*operation}");
+
             // WebAPI Routes
             var route = RouteTable.Routes.MapHttpRoute(
                 name: "DefaultApi",
@@ -90,8 +89,7 @@ namespace WatchlistTracker
                                  {
                                      var docStore = new DocumentStore
                                                         {
-                                                            Url = ConfigurationManager.AppSettings["RavenUrl"],
-                                                            ApiKey = ConfigurationManager.AppSettings["RavenApiKey"]
+                                                            ConnectionStringName = "RavenDB"
                                                         };
                                      docStore.Initialize();
                                      return docStore;

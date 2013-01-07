@@ -3,27 +3,54 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
+
+  <script type="text/javascript">
+      $(function () {
+          var connection = $.connection('/signal/echo');
+
+          connection.received(function (data) {
+              console.log(data);
+              $('#messages').append('<li>' + data + '</li>');
+          });
+
+          connection.start().done(function () {
+              $("#broadcast").click(function () {
+                  data = {
+                      text: $('#msg').val()
+                  }
+                  connection.send(data);
+              });
+          });
+
+      });
+  </script>
+
+  <input type="text" id="msg" />
+  <input type="button" id="broadcast" value="broadcast" />
+
+  <ul id="messages">
+  </ul>
+
+
 <div class="k-content">
+
   <a class="k-button"><span id="reload" class="k-icon k-i-refresh"></span></a>
    <div id="hallo">
-    <div id="collected-wrapper" data-bind="visible: collectedVisible">
+    <div id="collected-wrapper" style="width: 850px; float:left; ">
         <h2>Collected Movies</h2>
-        <div id="collected" 
-                data-role="list" 
-		        data-template="collected_item_template"
-                data-bind="source: collected">
+        <div id="collected" data-role="list" data-template="collected_item_template" data-bind="source: collected">
         </div>
     </div>
-    <div id="potentials-wrapper" data-bind="visible: potentialsVisible">        
+    <div id="potentials-wrapper" data-bind="visible: potentialsVisible" style="width: 850px; float: left;">        
         <h2>Potentials</h2>
         <div id="potentials" 
             data-role="list" 
 		    data-template="collected_item_template"
-            data-bind="source: potentials">
+            data-bind="source: potentials" style="width: 850px;">
         </div>
     </div>
-        <div id="futures_wrapper" data-bind="visible: futuresVisible">        
-        <h2>Potentials</h2>
+        <div id="futures_wrapper" data-bind="visible: futuresVisible" style="width: 850px">        
+        <h2>Not yet released</h2>
         <div id="futures" 
             data-role="list" 
 		    data-template="collected_item_template"
@@ -32,9 +59,10 @@
     </div>
   </div>
   <script id="collected_item_template" type="template">
-        <div class="movie">
+        <div class="movie" style="float: left;">
             <img src="${images.poster}" alt="${title}" />
-            <a class="k-button" data-bind="click: Seen"><img src="/Content/Images/seen-on.png"></a>
+            <a class="k-button" data-bind="click: Collected">Collected</a>
+            <a class="k-button" data-bind="click: Seen">Seen</a>
         </div>
   </script>
 
@@ -81,7 +109,6 @@
       kendo.data.binders.active = kendo.data.Binder.extend({
           refresh: function () {
               var value = this.bindings["active"].get();
-
               if (value) {
                   $(this.element).addClass("k-state-active");
               } else {
@@ -89,7 +116,6 @@
               }
           }
       });
-
 
       var viewModel = kendo.observable({
           watchlist: [],
@@ -132,6 +158,7 @@
               var result = new Array();
               var now = new Date();
               for (var i = 0; i < watchlist.length; i++) {
+                  console.log(watchlist[i].ReleaseDate);
                   if (!watchlist[i].InCollection && watchlist[i].ReleaseDate > now )
                       result.push(watchlist[i]);
               }
@@ -186,11 +213,10 @@
       });
   </script>
 
-    <style scoped>
+    <style>
         .movie
         {
             width: 150px;
-            float: left;
         }
         .movie img
         {

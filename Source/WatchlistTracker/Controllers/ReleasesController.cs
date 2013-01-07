@@ -36,6 +36,8 @@ namespace WatchlistTracker.Controllers
                                       var found = collection.Any(c => c == m.TmdbId);
                                       m.InCollection = found;
                                   });
+
+            watchlist.Where( m=> m.ReleaseDate < DateTime.Today && !m.InCollection).ForEach(m => m.Releases = new PreDB().SearchMovie(m.Title));
             return watchlist;
         }
 

@@ -4,16 +4,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head runat="server">
     <title></title>
-    <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
-    <script type='text/javascript' src="/Content/Scripts/jquery-1.8.0.js"></script>
-    <script type='text/javascript' src="/Content/Scripts/jquery.xml2json.js"></script>
-    <script type='text/javascript' src="/Content/Scripts/kendo/2012.2.710/kendo.web.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="/Content/kendo/2012.2.710/kendo.common.min.css">
-    <link rel="stylesheet" type="text/css" href="/Content/kendo/2012.2.710/kendo.default.min.css">
-    <script type='text/javascript' src="/Content/Scripts/knockout-2.1.0.js"></script>
-    <script type='text/javascript' src="/Content/Scripts/utils.js"></script>
-    <script type='text/javascript' src="/Content/JNotify/jquery/jNotify.jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/Content/JNotify/jquery/jNotify.jquery.css">
+    <link rel="stylesheet" type="text/css" href="/Content/Site.css" />
+	<link rel="stylesheet" type="text/css" href="/Content/kendo/2012.3.1114/kendo.common.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/kendo/2012.3.1114/kendo.default.min.css">
+    <script type='text/javascript' src="/Scripts/jquery-1.8.3.min.js"></script>
+    <script type='text/javascript' src="/Scripts/kendo/2012.3.1114/kendo.web.min.js"></script>
+    <script type='text/javascript' src="/Scripts/utils.js"></script>
+   
+    <script type="text/javascript" src="/Content/noty/jquery.noty.js"></script> 
+    <script type="text/javascript" src="/Content/noty/layouts/top.js"></script>
+    <script type="text/javascript" src="/Content/noty/layouts/topCenter.js"></script>
+    <script type="text/javascript" src="/Content/noty/layouts/center.js"></script>
+    <script type="text/javascript" src="/Content/noty/layouts/bottom.js"></script>
+    <script type="text/javascript" src="/Content/noty/layouts/bottomCenter.js"></script>
+    <script type="text/javascript" src="/Content/noty/themes/default.js"></script>
+
+    <script src="Scripts/jquery.signalR-0.5.3.min.js" type="text/javascript"></script>
+
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
