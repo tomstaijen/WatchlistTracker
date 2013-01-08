@@ -61,6 +61,9 @@
   <script id="collected_item_template" type="template">
         <div class="movie" style="float: left;">
             <img src="${images.poster}" alt="${title}" />
+            # if( Releases ) { # 
+                RELEASES
+            # } #
             <a class="k-button" data-bind="click: Collected">Collected</a>
             <a class="k-button" data-bind="click: Seen">Seen</a>
         </div>
