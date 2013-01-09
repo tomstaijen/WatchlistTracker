@@ -155,7 +155,7 @@
               return result;
 
           },
-          
+           
           futures: function() {
               var watchlist = this.get("watchlist");
               var result = new Array();
