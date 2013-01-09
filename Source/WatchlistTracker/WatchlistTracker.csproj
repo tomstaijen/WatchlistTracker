@@ -727,6 +727,7 @@
     <Compile Include="Logic\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Logic\Dropbox.cs" />
     <Compile Include="Logic\HttpHelper.cs" />
     <Compile Include="Logic\PreDB.cs" />
     <Compile Include="Logic\Trakt.cs" />
